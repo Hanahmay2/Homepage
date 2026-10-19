@@ -287,4 +287,65 @@ footer {
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .network-visual {
+    background: #f0eee8;
+    min-width: 0;
+  }
+
+  .network {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Visible connecting lines */
+  .network-edges .edge {
+    fill: none;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    opacity: 0.9;
+  }
+
+  .edge.coral {
+    stroke: #ed6a5a;
+  }
+  .edge.blue {
+    stroke: #4385d1;
+  }
+  .edge.purple {
+    stroke: #9470cf;
+  }
+  .edge.green {
+    stroke: #459b79;
+  }
+  .edge.yellow {
+    stroke: #d8a62e;
+  }
+
+  /* Colourful network nodes */
+  .network-nodes .node {
+    stroke: #f0eee8;
+    stroke-width: 2.5;
+  }
+
+  .node.coral {
+    fill: #ed6a5a;
+  }
+  .node.blue {
+    fill: #4385d1;
+  }
+  .node.purple {
+    fill: #9470cf;
+  }
+  .node.green {
+    fill: #459b79;
+  }
+  .node.yellow {
+    fill: #e7b83f;
+  }
+
+  .network-visual .visual-caption {
+    border-top: 1px solid #d5d2c9;
+  }
 }
