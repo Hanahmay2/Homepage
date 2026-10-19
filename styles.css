@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f7f6f2;
+  color: #22251f;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  padding: 0 8%;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  border-bottom: 1px solid #deded5;
+}
+
+.logo {
+  color: #22251f;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 28px;
+}
+
+nav a,
+.text-link {
+  color: #55584f;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+nav a:hover,
+.text-link:hover {
+  color: #e76f51;
+}
+
+/* ---------- Hero layout ---------- */
+
+.hero {
+  min-height: 75vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 60px;
+  padding: 70px 0;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.eyebrow {
+  color: #e76f51;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-size: clamp(42px, 5vw, 70px);
+  line-height: 1.08;
+  letter-spacing: -3px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+h1 span {
+  color: #e76f51;
+}
+
+.description {
+  color: #65675f;
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 32px;
+}
+
+/* ---------- Buttons and links ---------- */
+
+.hero-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.button {
+  display: inline-block;
+  background: #22251f;
+  color: #ffffff;
+  padding: 15px 22px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.button:hover {
+  background: #e76f51;
+}
+
+.text-link {
+  border-bottom: 1px solid #b8b8ad;
+  padding-bottom: 4px;
+}
+
+/* ---------- Data visualisation ---------- */
+
+.hero-visual {
+  background: #e9e9df;
+  min-height: 360px;
+  border-radius: 6px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.visual-label {
+  color: #65675f;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.chart {
+  height: 230px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  border-bottom: 1px solid #c9cabe;
+  padding: 0 10px;
+}
+
+.bar {
+  flex: 1;
+  max-width: 48px;
+  border-radius: 4px 4px 0 0;
+  animation: grow 1s ease-out both;
+  transform-origin: bottom;
+}
+
+.bar-1 {
+  height: 35%;
+  background: #e76f51;
+}
+
+.bar-2 {
+  height: 58%;
+  background: #f4a261;
+  animation-delay: 0.1s;
+}
+
+.bar-3 {
+  height: 45%;
+  background: #7b9e87;
+  animation-delay: 0.2s;
+}
+
+.bar-4 {
+  height: 82%;
+  background: #264653;
+  animation-delay: 0.3s;
+}
+
+.bar-5 {
+  height: 64%;
+  background: #e76f51;
+  animation-delay: 0.4s;
+}
+
+.bar-6 {
+  height: 95%;
+  background: #7b9e87;
+  animation-delay: 0.5s;
+}
+
+.bar-7 {
+  height: 72%;
+  background: #f4a261;
+  animation-delay: 0.6s;
+}
+
+@keyframes grow {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.visual-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #65675f;
+  font-size: 11px;
+  padding-top: 18px;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  border-top: 1px solid #deded5;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 0;
+  color: #77796f;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+/* ---------- Mobile layout ---------- */
+
+@media (max-width: 800px) {
+  body {
+    padding: 0 6%;
+  }
+
+  .navbar {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  nav {
+    gap: 16px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 0;
+  }
+
+  h1 {
+    letter-spacing: -2px;
+  }
+
+  .hero-visual {
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 450px) {
+  .navbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  nav {
+    flex-wrap: wrap;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
