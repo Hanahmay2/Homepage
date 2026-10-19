@@ -40,72 +40,121 @@
         </div>
       </div>
 
-      <div class="hero-visual network-visual" id="work">
-        <div class="visual-label">CLINICAL DATA CONNECTIONS</div>
+      
+<div class="hero-visual network-visual" id="work">
+  <div class="visual-label">CLINICAL DATA CONNECTIONS</div>
 
-        <svg
-          viewBox="0 0 440 300"
-          width="100%"
-          xmlns="http://www.w3.org/2000/svg"
-          role="img"
-          aria-label="Colourful interconnected clinical data network"
-        >
-          <!-- CONNECTIONS: lines between nodes -->
-          <g fill="none" stroke-width="3" stroke-linecap="round">
-            <line x1="220" y1="145" x2="100" y2="65" stroke="#E76F51" />
-            <line x1="220" y1="145" x2="330" y2="60" stroke="#4385D1" />
-            <line x1="220" y1="145" x2="90" y2="215" stroke="#9470CF" />
-            <line x1="220" y1="145" x2="350" y2="210" stroke="#459B79" />
-            <line x1="220" y1="145" x2="220" y2="255" stroke="#D8A62E" />
+  <canvas id="networkCanvas"
+          aria-label="Animated network of connected clinical data points">
+  </canvas>
 
-            <line x1="100" y1="65" x2="50" y2="130" stroke="#4385D1" />
-            <line x1="100" y1="65" x2="175" y2="35" stroke="#9470CF" />
-            <line x1="175" y1="35" x2="270" y2="35" stroke="#459B79" />
-            <line x1="270" y1="35" x2="330" y2="60" stroke="#D8A62E" />
-            <line x1="330" y1="60" x2="395" y2="125" stroke="#E76F51" />
-            <line x1="395" y1="125" x2="350" y2="210" stroke="#9470CF" />
-            <line x1="350" y1="210" x2="290" y2="270" stroke="#4385D1" />
-            <line x1="290" y1="270" x2="220" y2="255" stroke="#E76F51" />
-            <line x1="220" y1="255" x2="125" y2="270" stroke="#459B79" />
-            <line x1="125" y1="270" x2="90" y2="215" stroke="#D8A62E" />
-            <line x1="90" y1="215" x2="35" y2="175" stroke="#E76F51" />
-            <line x1="35" y1="175" x2="50" y2="130" stroke="#459B79" />
-            <line x1="50" y1="130" x2="100" y2="65" stroke="#9470CF" />
+  <div class="visual-caption">
+    <span>People. Treatments. Outcomes.</span>
+    <span>DATA / 01</span>
+  </div>
+</div>
 
-            <line x1="100" y1="65" x2="220" y2="145" stroke="#D8A62E" />
-            <line x1="330" y1="60" x2="220" y2="145" stroke="#E76F51" />
-            <line x1="90" y1="215" x2="220" y2="255" stroke="#4385D1" />
-            <line x1="350" y1="210" x2="220" y2="145" stroke="#D8A62E" />
-            <line x1="175" y1="35" x2="220" y2="145" stroke="#E76F51" />
-          </g>
+<script>
+  const canvas = document.getElementById("networkCanvas");
+  const ctx = canvas.getContext("2d");
 
-          <!-- SMALL NODES -->
-          <g stroke="#F0EEE8" stroke-width="2">
-            <circle cx="50" cy="130" r="7" fill="#4385D1" />
-            <circle cx="175" cy="35" r="8" fill="#9470CF" />
-            <circle cx="270" cy="35" r="7" fill="#459B79" />
-            <circle cx="395" cy="125" r="9" fill="#D8A62E" />
-            <circle cx="35" cy="175" r="6" fill="#E76F51" />
-            <circle cx="125" cy="270" r="8" fill="#4385D1" />
-            <circle cx="290" cy="270" r="7" fill="#9470CF" />
-          </g>
+  const colours = [
+    "#E76F51",
+    "#4385D1",
+    "#9470CF",
+    "#459B79",
+    "#D8A62E"
+  ];
 
-          <!-- MAIN NODES -->
-          <g stroke="#F0EEE8" stroke-width="3">
-            <circle cx="220" cy="145" r="19" fill="#E76F51" />
-            <circle cx="100" cy="65" r="13" fill="#D8A62E" />
-            <circle cx="330" cy="60" r="14" fill="#4385D1" />
-            <circle cx="90" cy="215" r="12" fill="#459B79" />
-            <circle cx="350" cy="210" r="15" fill="#9470CF" />
-            <circle cx="220" cy="255" r="11" fill="#459B79" />
-          </g>
-        </svg>
+  let width, height, nodes = [];
+  let animationFrame;
 
-        <div class="visual-caption">
-          <span>People. Treatments. Outcomes.</span>
-          <span>DATA / 01</span>
-        </div>
-      </div>
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const dpr = window.devicePixelRatio || 1;
+
+    width = rect.width;
+    height = rect.height;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    if (nodes.length === 0) {
+      nodes = Array.from({ length: 30 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: 3 + Math.random() * 5,
+        colour: colours[
+          Math.floor(Math.random() * colours.length)
+        ]
+      }));
+    } else {
+      nodes.forEach(node => {
+        node.x = Math.min(node.x, width);
+        node.y = Math.min(node.y, height);
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Move nodes
+    nodes.forEach(node => {
+      node.x += node.vx;
+      node.y += node.vy;
+
+      if (node.x < node.radius || node.x > width - node.radius) {
+        node.vx *= -1;
+      }
+
+      if (node.y < node.radius || node.y > height - node.radius) {
+        node.vy *= -1;
+      }
+    });
+
+    // Draw connections between nearby nodes
+    nodes.forEach((a, i) => {
+      nodes.slice(i + 1).forEach(b => {
+        const dx = a.x - b.x;
+        const dy = a.y - b.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 115) {
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = a.colour;
+          ctx.globalAlpha = 1 - distance / 115;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      });
+    });
+
+    // Draw colourful nodes
+    nodes.forEach(node => {
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.fillStyle = node.colour;
+      ctx.fill();
+    });
+
+    animationFrame = requestAnimationFrame(animate);
+  }
+
+  resizeCanvas();
+  animate();
+
+  window.addEventListener("resize", resizeCanvas);
+</script>
+</div>
+
     </main>
 
     <footer>
