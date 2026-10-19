@@ -41,17 +41,20 @@ nav {
 }
 
 nav a {
-  display: inline-flex;
-  align-items: center;
-  line-height: 1;
+  display: block;
+  margin: 0;
+  padding: 0;
+  line-height: 20px;
+  vertical-align: middle;
   color: #55584f;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
+  font-weight: 400;
   text-decoration: none;
   white-space: nowrap;
 }
 
-nav a:hover,
-.text-link:hover {
+nav a:hover {
   color: #e76f51;
 }
 
