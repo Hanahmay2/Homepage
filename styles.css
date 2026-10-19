@@ -36,14 +36,18 @@ body {
 
 nav {
   display: flex;
+  align-items: center;
   gap: 28px;
 }
 
-nav a,
-.text-link {
+nav a {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   color: #55584f;
   font-size: 14px;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 nav a:hover,
